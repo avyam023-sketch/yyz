@@ -93,7 +93,16 @@ export async function rateLimit(key: string, limit: number, windowMs: number): P
   return memoryRateLimit(key, limit, windowMs);
 }
 
-/** Best-effort client IP from proxy headers. Used only as a rate-limit key, never stored. */
+/**
+ * Best-effort client IP from proxy headers. Used only as a rate-limit key, never stored.
+ * `x-vercel-forwarded-for` is set by Vercel's edge and cannot be supplied by the client.
+ * Other hosts must overwrite `x-real-ip` / `x-forwarded-for` at their proxy.
+ */
 export function clientKey(headers: Headers): string {
-  return headers.get("x-real-ip") ?? headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  return (
+    headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() ||
+    headers.get("x-real-ip") ||
+    headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    "unknown"
+  );
 }

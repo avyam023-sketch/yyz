@@ -54,7 +54,7 @@ Until Supabase is configured, `/dashboard` and `/login` redirect to `/setup`, wh
    - paste each file into **SQL Editor → New query → Run**, or
    - with the CLI: `npx supabase link --project-ref <ref>` then `npx supabase db push`.
 
-   `20261019120000_initial_schema.sql` creates the tables, constraints, indexes, RLS policies, SQL functions and the `property-media` storage bucket with its upload policies. `20261020090000_team_and_email.sql` adds the team-management functions and email-delivery tracking.
+   `20261019120000_initial_schema.sql` creates the tables, constraints, indexes, RLS policies, SQL functions and the `property-media` storage bucket with its upload policies. `20261020090000_team_and_email.sql` adds the team-management functions and email-delivery tracking. `20261022120000_mobile_cover.sql` adds the portrait cover image used by the microsite hero and share image on phones.
 3. **Auth settings** (Authentication → Providers → Email): keep Email enabled. For a staff-only tool, turn **off** "Allow new users to sign up" so accounts can only be created by an administrator.
 4. **Auth URL configuration**: set Site URL to your deployed origin, e.g. `https://homes.example.com`, and add `https://homes.example.com/auth/confirm` (and `http://localhost:3000/auth/confirm` for development) to **Redirect URLs**.
 5. **Email templates** (Authentication → Email Templates). Server-rendered apps need token-hash links. Change the link in two templates:
@@ -220,6 +220,8 @@ The platform uses the standard `https://wa.me/<digits>?text=<encoded message>` l
   - strict Zod schemas with an allow-list for metadata keys.
 
   The in-memory limiter is per server instance. For multi-region production traffic, back `src/lib/rate-limit.ts` with a shared store such as Upstash Redis.
+
+  Per-IP limits trust the platform's client-IP header (`x-vercel-forwarded-for` on Vercel). If you host elsewhere, make sure your reverse proxy overwrites `x-real-ip` / `x-forwarded-for` rather than passing through what the client sent, or the per-IP limits can be bypassed.
 - **Headers**:
   - `/p/*` sends `Referrer-Policy: no-referrer` (so the token never leaks to Google Maps or other links), `Cache-Control: private, no-store` and `X-Robots-Tag: noindex`;
   - all pages set `X-Frame-Options: DENY` and `nosniff`;

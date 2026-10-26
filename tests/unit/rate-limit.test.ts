@@ -13,9 +13,12 @@ describe("memoryRateLimit", () => {
     expect(memoryRateLimit(key, 3, 60_000, t0 + 60_001).ok).toBe(true);
   });
 
-  it("keys on the first forwarded address only", () => {
+  it("prefers the platform IP header, then the first forwarded address", () => {
     expect(clientKey(new Headers({ "x-forwarded-for": "203.0.113.5, 10.0.0.1" }))).toBe("203.0.113.5");
     expect(clientKey(new Headers())).toBe("unknown");
+    expect(
+      clientKey(new Headers({ "x-vercel-forwarded-for": "198.51.100.7", "x-real-ip": "203.0.113.9", "x-forwarded-for": "203.0.113.9" })),
+    ).toBe("198.51.100.7");
   });
 });
 
