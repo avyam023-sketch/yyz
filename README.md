@@ -54,7 +54,7 @@ Until Supabase is configured, `/dashboard` and `/login` redirect to `/setup`, wh
    - paste each file into **SQL Editor → New query → Run**, or
    - with the CLI: `npx supabase link --project-ref <ref>` then `npx supabase db push`.
 
-   `20261019120000_initial_schema.sql` creates the tables, constraints, indexes, RLS policies, SQL functions and the `property-media` storage bucket with its upload policies. `20261020090000_team_and_email.sql` adds the team-management functions and email-delivery tracking. `20261022120000_mobile_cover.sql` adds the portrait cover image used by the microsite hero and share image on phones.
+   `20261019120000_initial_schema.sql` creates the tables, constraints, indexes, RLS policies, SQL functions and the `property-media` storage bucket with its upload policies. `20261020090000_team_and_email.sql` adds the team-management functions and email-delivery tracking. `20261022120000_mobile_cover.sql` adds the portrait cover image used by the microsite hero and share image on phones. `20261027120000_price_on_request.sql` adds the per-unit "price on request" option.
 3. **Auth settings** (Authentication → Providers → Email): keep Email enabled. For a staff-only tool, turn **off** "Allow new users to sign up" so accounts can only be created by an administrator.
 4. **Auth URL configuration**: set Site URL to your deployed origin, e.g. `https://homes.example.com`, and add `https://homes.example.com/auth/confirm` (and `http://localhost:3000/auth/confirm` for development) to **Redirect URLs**.
 5. **Email templates** (Authentication → Email Templates). Server-rendered apps need token-hash links. Change the link in two templates:

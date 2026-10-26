@@ -12,6 +12,7 @@ export interface SampleProperty {
   bathrooms: number;
   area: number;
   price: number;
+  priceOnRequest?: boolean;
   floor: number;
   availabilityStatus: "available" | "reserved" | "sold";
   description: string;
@@ -85,14 +86,14 @@ export const SAMPLE_DEVELOPMENTS: SampleDevelopment[] = [
     properties: [
       apt("A-0802", "2BHK", 2, 1040, 8_400_000, 8, "available", ["East facing", "Garden view"]),
       apt("A-1204", "2BHK", 2, 1085, 9_200_000, 12, "available", ["Park view", "Corner unit"]),
-      apt("B-1503", "2BHK", 2, 1110, 9_850_000, 15, "available", ["City view", "Two balconies"]),
+      { ...apt("B-1503", "2BHK", 2, 1110, 9_850_000, 15, "available", ["City view", "Two balconies"]), priceOnRequest: true },
       apt("A-1801", "2BHK", 2, 1150, 11_200_000, 18, "available", ["High floor", "Panoramic view"]),
       apt("A-0603", "2BHK", 2, 1040, 8_800_000, 6, "reserved"),
       apt("A-0302", "2BHK", 2, 1020, 7_900_000, 3, "sold"),
       apt("A-0501", "1BHK", 1, 640, 5_800_000, 5, "available", ["Ideal starter home"]),
       apt("B-0902", "3BHK", 3, 1480, 13_500_000, 9, "available", ["Three balconies", "Study nook"]),
       apt("B-1402", "3BHK", 3, 1520, 14_800_000, 14, "available", ["Garden view"]),
-      apt("B-2101", "4BHK", 4, 2150, 21_000_000, 21, "available", ["Private deck", "Servant room"]),
+      { ...apt("B-2101", "4BHK", 4, 2150, 21_000_000, 21, "available", ["Private deck", "Servant room"]), priceOnRequest: true },
     ],
   },
   {

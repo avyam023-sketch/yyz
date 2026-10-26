@@ -32,6 +32,7 @@ export interface SelectableProperty {
   configuration: string;
   developmentName: string;
   price: number | null;
+  priceOnRequest: boolean;
   currency: string;
   area: number | null;
   areaUnit: string;
@@ -78,7 +79,10 @@ function PropertyOption({ p, checked, onToggle, disabled }: { p: SelectablePrope
             {p.configuration} · Unit {p.unitReference}
             {!p.developmentMatch && <span className="ml-2 text-xs font-normal text-muted-foreground">{p.developmentName}</span>}
           </div>
-          <div className="font-display text-xl font-semibold tabular-nums">{formatCompactPrice(p.price, p.currency)}</div>
+          <div className="text-right">
+            <div className="font-display text-xl font-semibold tabular-nums">{formatCompactPrice(p.price, p.currency)}</div>
+            {p.priceOnRequest && p.price !== null && <div className="text-xs text-muted-foreground">Buyer sees &ldquo;Price on request&rdquo;</div>}
+          </div>
         </div>
         <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
           <span>{formatArea(p.area, p.areaUnit)}</span>

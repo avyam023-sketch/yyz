@@ -43,6 +43,8 @@ export interface Property {
   area: number | null;
   areaUnit: string;
   price: number | null;
+  /** Buyers see "Price on request" instead of the price, which stays visible to the team. */
+  priceOnRequest: boolean;
   currency: string;
   floor: number | null;
   floorPlanPath: string | null;
@@ -200,6 +202,7 @@ export interface PublicProperty {
   areaUnit: string;
   availabilityStatus: string;
   price: number | null;
+  priceOnRequest: boolean;
   currency: string;
   floor: number | null;
   floorPlanPath: string | null;

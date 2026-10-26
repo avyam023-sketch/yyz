@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { TIME_RANGES, TIME_RANGE_LABELS } from "@/lib/domain/constants";
 import { todayIn } from "@/lib/domain/dates";
+import { residenceName } from "@/lib/domain/residence";
 import type { PublicProperty } from "@/lib/types";
 import { getSessionId, useTracker } from "./tracker";
 import { cn } from "@/lib/utils";
@@ -141,7 +142,7 @@ export function ViewingRequestForm({
           <option value="">Any of my selected homes</option>
           {available.map((p) => (
             <option key={p.ref} value={p.ref}>
-              {p.configuration} · Unit {p.unitReference}
+              {residenceName(p.propertyType, p.unitReference)} · {p.configuration}
             </option>
           ))}
         </select>

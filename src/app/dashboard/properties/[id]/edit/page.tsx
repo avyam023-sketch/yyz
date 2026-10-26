@@ -34,6 +34,7 @@ export default async function EditPropertyPage({ params }: { params: Promise<{ i
           area: p.area !== null ? String(p.area) : "",
           areaUnit: p.areaUnit as never,
           price: p.price !== null ? String(p.price) : "",
+          priceOnRequest: p.priceOnRequest,
           currency: p.currency,
           floor: p.floor !== null ? String(p.floor) : "",
           description: p.description ?? "",

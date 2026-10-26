@@ -27,7 +27,7 @@ Buyer enquires
 | Step | What it does | Status |
 |---|---|---|
 | 1. Supabase project | Stores all data, logins and files securely | ✅ Connected |
-| 2. Database migrations | Creates the tables and security rules | ✅ All 3 applied |
+| 2. Database migrations | Creates the tables and security rules | ⚠️ 3 of 4 applied: apply `20261027120000_price_on_request.sql` |
 | 3. Sample data | A demo organisation with 2 fictional developments, labelled **Sample** | ✅ Seeded |
 | 4. Opus One | Your real development, with its cover images and brochure | ✅ Added; **units still needed** |
 | 5. Code on GitHub | Your code is backed up and ready to deploy | ✅ `adi26nova12/gb-reality` |
@@ -51,6 +51,7 @@ Click **Edit** and add the location, developer, description, amenities, payment 
 - Unit reference (e.g. *T1-1204*)
 - Configuration (e.g. *3BHK*), bedrooms, bathrooms, area
 - **Price** (type it the Indian way: `1.2Cr` or `95L`)
+- **Show buyers "Price on request"** (optional): for signature units. Buyers see *Price on request* instead of the figure; your team still sees the price, and it is still used for budget matching
 - Availability (*Available / Reserved / Sold*)
 - Floor plan (upload the typical floor plan PDF or an image)
 - Photos (optional)
@@ -112,7 +113,7 @@ On the same enquiry page, under **Personalised welcome image**, click **Download
 When Ahmed opens the link on his phone:
 
 1. **A welcome screen** with the Opus One image and his name: *"Prepared exclusively for **Ahmed**, Welcome to Opus One"*
-2. **"Your homes"**: only the units you picked, with price, size, floor and features
+2. **"Your homes"**: only the units you picked, each named as a residence (*Residence T1-1204*, *Penthouse T1-3001*) with its view or aspect underneath, then the price (or *Price on request*) and the specifications
 3. **View details** and **Floor plan** buttons on each home
 4. **Life at Opus One**: description, amenities and gallery
 5. **Payment plan**: tap to expand

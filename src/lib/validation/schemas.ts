@@ -249,6 +249,7 @@ export const propertySchema = z.object({
   area: optionalDecimal(1, 1_000_000, "Area"),
   areaUnit: z.enum(AREA_UNITS).default("sqft"),
   price: amount,
+  priceOnRequest: z.boolean().default(false),
   currency: z
     .string()
     .trim()

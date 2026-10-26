@@ -52,6 +52,7 @@ export function mapProperty(r: Row, developmentName = ""): Property {
     area: num(r.area),
     areaUnit: r.area_unit,
     price: num(r.price),
+    priceOnRequest: r.price_on_request ?? false,
     currency: r.currency,
     floor: num(r.floor),
     floorPlanPath: r.floor_plan_path,

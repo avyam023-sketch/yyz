@@ -105,7 +105,10 @@ export default async function PropertiesPage({ searchParams }: { searchParams: P
                     <TableCell>{p.configuration}</TableCell>
                     <TableCell className="text-muted-foreground">{formatArea(p.area, p.areaUnit)}</TableCell>
                     <TableCell className="text-muted-foreground">{p.floor ?? "—"}</TableCell>
-                    <TableCell className="text-right tabular-nums">{formatCompactPrice(p.price, p.currency)}</TableCell>
+                    <TableCell className="text-right tabular-nums">
+                      {formatCompactPrice(p.price, p.currency)}
+                      {p.priceOnRequest && p.price !== null && <div className="text-xs text-muted-foreground">On request to buyers</div>}
+                    </TableCell>
                     <TableCell>
                       <PropertyAvailabilityBadge status={p.availabilityStatus} archived={Boolean(p.archivedAt)} />
                     </TableCell>

@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { MediaImage } from "@/components/app/media-image";
 import { formatArea, formatCompactPrice, formatFullPrice } from "@/lib/domain/money";
 import { PROPERTY_AVAILABILITY_LABELS, PROPERTY_TYPE_LABELS, type PropertyAvailability, type PropertyType } from "@/lib/domain/constants";
+import { residenceHeadline, residenceName } from "@/lib/domain/residence";
 import { mediaUrl } from "@/lib/media";
 import type { PublicProperty } from "@/lib/types";
 import { useTracker } from "./tracker";
@@ -54,7 +55,9 @@ export function PropertyCard({ p, onRequestViewing, showDevelopment }: { p: Publ
     };
   }, [p.ref, track]);
 
-  const title = `${p.configuration} · Unit ${p.unitReference}`;
+  const title = residenceName(p.propertyType, p.unitReference);
+  const headline = residenceHeadline(p.features);
+  const showPrice = available && !p.priceOnRequest && p.price !== null;
 
   return (
     <article ref={ref} className="group flex flex-col overflow-hidden rounded-2xl border border-[#e6e0d4] bg-white shadow-[0_1px_2px_rgba(18,22,20,0.04)]">
@@ -69,22 +72,27 @@ export function PropertyCard({ p, onRequestViewing, showDevelopment }: { p: Publ
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         {showDevelopment && <div className="eyebrow mb-1 text-brass">{p.developmentName}</div>}
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-base font-semibold text-charcoal">{title}</h3>
-          <div className="text-right">
-            {available ? (
+          <div className="min-w-0">
+            <h3 className="font-display text-2xl leading-tight font-semibold text-charcoal">{title}</h3>
+            {headline && <p className="mt-1 line-clamp-2 text-sm text-charcoal/75">{headline}</p>}
+          </div>
+          <div className="shrink-0 pt-1 text-right">
+            {showPrice ? (
               <div className="font-display text-2xl leading-none font-semibold text-charcoal">{formatCompactPrice(p.price, p.currency)}</div>
+            ) : available ? (
+              <div className="eyebrow max-w-[6.5rem] leading-snug text-brass sm:max-w-none">Price on request</div>
             ) : (
               <div className="text-sm text-muted-foreground">No longer available</div>
             )}
           </div>
         </div>
-        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-charcoal/75">
+        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-[#efe9dd] pt-3 text-xs text-charcoal/65">
+          <span className="font-medium text-charcoal/80">{p.configuration}</span>
           {p.area !== null && <Fact icon={Maximize2}>{formatArea(p.area, p.areaUnit)}</Fact>}
           {p.bedrooms !== null && <Fact icon={BedDouble}>{p.bedrooms} bed</Fact>}
           {p.bathrooms !== null && <Fact icon={Bath}>{p.bathrooms} bath</Fact>}
           {p.floor !== null && <Fact icon={Building}>Floor {p.floor}</Fact>}
         </div>
-        {p.features.length > 0 && <p className="mt-3 line-clamp-2 text-sm text-charcoal/65">{p.features.slice(0, 3).join(" · ")}</p>}
         <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
           <Button
             variant="outline"
@@ -119,8 +127,8 @@ export function PropertyCard({ p, onRequestViewing, showDevelopment }: { p: Publ
           <DialogHeader>
             <DialogTitle className="font-display text-2xl">{title}</DialogTitle>
             <DialogDescription>
-              {PROPERTY_TYPE_LABELS[p.propertyType as PropertyType] ?? "Home"} in {p.developmentName}
-              {available && p.price !== null ? ` · ${formatFullPrice(p.price, p.currency)}` : ""}
+              {p.configuration} {(PROPERTY_TYPE_LABELS[p.propertyType as PropertyType] ?? "home").toLowerCase()} in {p.developmentName}
+              {showPrice ? ` · ${formatFullPrice(p.price, p.currency)}` : available ? " · Price on request" : ""}
             </DialogDescription>
           </DialogHeader>
           {p.imagePaths.length > 0 && (

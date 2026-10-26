@@ -56,6 +56,7 @@ function propertyRow(v: PropertyValues) {
     area: v.area,
     area_unit: v.areaUnit,
     price: v.price,
+    price_on_request: v.priceOnRequest,
     currency: v.currency,
     floor: v.floor,
     description: v.description,

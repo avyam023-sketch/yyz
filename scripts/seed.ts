@@ -140,6 +140,7 @@ async function main() {
         area: p.area,
         area_unit: "sqft",
         price: p.price,
+        price_on_request: p.priceOnRequest ?? false,
         currency: "INR",
         floor: p.floor,
         description: p.description,

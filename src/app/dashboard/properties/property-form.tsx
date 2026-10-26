@@ -72,6 +72,7 @@ export function PropertyForm({
       area: "",
       areaUnit: "sqft",
       price: "",
+      priceOnRequest: false,
       currency: defaultCurrency,
       floor: "",
       description: "",
@@ -161,6 +162,13 @@ export function PropertyForm({
             <Input aria-label="Currency" className="w-20 uppercase" maxLength={3} {...register("currency")} />
           </div>
         </Field>
+        <div className="sm:col-span-2">
+          <label className="flex items-center gap-3 text-sm">
+            <Controller control={control} name="priceOnRequest" render={({ field }) => <Switch checked={Boolean(field.value)} onCheckedChange={field.onChange} />} />
+            Show buyers &ldquo;Price on request&rdquo;
+          </label>
+          <p className="mt-1.5 text-xs text-muted-foreground">The price above stays visible to your team and is still used for budget matching. Buyers never see it.</p>
+        </div>
         <Field id="description" label="Description" error={err("description")} className="sm:col-span-2">
           <Textarea id="description" rows={4} {...register("description")} />
         </Field>

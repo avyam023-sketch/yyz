@@ -23,6 +23,7 @@ function toSelectable(m: MatchResult<Candidate>): SelectableProperty {
     configuration: p.configuration,
     developmentName: p.developmentName,
     price: p.price,
+    priceOnRequest: p.priceOnRequest,
     currency: p.currency,
     area: p.area,
     areaUnit: p.areaUnit,

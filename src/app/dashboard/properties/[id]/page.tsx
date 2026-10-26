@@ -113,6 +113,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
           <section className="rounded-xl border border-border bg-card p-6">
             <div className="font-display text-4xl font-semibold">{formatCompactPrice(p.price, p.currency)}</div>
             {p.price !== null && <div className="text-xs text-muted-foreground">{formatFullPrice(p.price, p.currency)}</div>}
+            {p.priceOnRequest && <div className="mt-1 text-xs font-medium text-brass">Buyers see &ldquo;Price on request&rdquo;</div>}
             <dl className="mt-5 space-y-2 text-sm">
               {[
                 ["Type", PROPERTY_TYPE_LABELS[p.propertyType as PropertyType] ?? p.propertyType],

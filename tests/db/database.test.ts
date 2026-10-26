@@ -233,6 +233,15 @@ describe("public microsite access", () => {
     expect(site.properties[0].availabilityStatus).toBe("sold");
     expect(site.properties[0].price).toBeNull();
   });
+
+  it("withholds the price of a home marked price on request", async () => {
+    const { token } = await createMicrosite([f.propA2bhkInBudget]);
+    await db.query("update properties set price_on_request = true where id = $1", [f.propA2bhkInBudget]);
+    const site = (await publicMicrosite(token)) as { properties: { availabilityStatus: string; price: number | null; priceOnRequest: boolean }[] };
+    expect(site.properties[0].availabilityStatus).toBe("available");
+    expect(site.properties[0].price).toBeNull();
+    expect(site.properties[0].priceOnRequest).toBe(true);
+  });
 });
 
 describe("engagement tracking", () => {
